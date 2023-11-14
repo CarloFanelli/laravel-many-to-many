@@ -11,6 +11,15 @@
                         <span
                             class="badge rounded-pill text-bg-success">{{ $project->type_id == null ? 'untyped' : $project->type?->name }}</span>
 
+                        @forelse ($project->technology as $technology)
+                            <li class="badge badge-success">
+                                <i class="fa-solid fa-code"></i>{{ $technology->name }}
+                            </li>
+
+                        @empty
+                            <li>no technologies specified</li>
+                        @endforelse
+
                     </div>
                     <div class="col-6">
                         @if ($project->cover_image)
