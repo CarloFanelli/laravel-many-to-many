@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTechnologyRequest;
 use App\Http\Requests\UpdateTechnologyRequest;
+use App\Models\Project;
 use App\Models\Technology;
 
 class TechnologyController extends Controller
@@ -45,6 +46,7 @@ class TechnologyController extends Controller
      */
     public function show(Technology $technology)
     {
+
         return view('admin.technologies.show', compact('technology'));
     }
 
