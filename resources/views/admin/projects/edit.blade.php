@@ -58,17 +58,18 @@
 
 
 
+                <label for="technologies">Select Technologies</label>
+                <div class="list-group mb-3" id="technologies">
 
-                <div class="mb-3">
-                    <label for="technologies" class="form-label">Technologies</label>
-                    <select multiple class="form-select" name="technologies[]" id="technologies">
-                        <option disabled>Select Technologies</option>
-                        @foreach ($technologies as $technology)
-                            <option value="{{ $technology->id }}"
-                                {{ in_array($technology->id, old('technologies', [])) ? 'selected' : '' }}>
-                                {{ $technology->name }}</option>
-                        @endforeach
-                    </select>
+                    @foreach ($technologies as $technology)
+                        <label class="list-group-item">
+                            <input class="form-check-input me-1" type="checkbox" value="{{ $technology->id }}"
+                                {{ $project->technologies->contains($technology->id) ? 'checked' : '' }}
+                                name="technologies[]">
+
+                            {{ $technology->name }}
+                        </label>
+                    @endforeach
                 </div>
 
 
