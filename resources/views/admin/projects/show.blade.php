@@ -12,7 +12,7 @@
                             class="badge rounded-pill text-bg-success">{{ $project->type_id == null ? 'untyped' : $project->type?->name }}</span>
 
                         @forelse ($project->technology as $technology)
-                            <li class="badge badge-success">
+                            <li class="badge badge-white">
                                 <i class="fa-solid fa-code"></i>{{ $technology->name }}
                             </li>
 
