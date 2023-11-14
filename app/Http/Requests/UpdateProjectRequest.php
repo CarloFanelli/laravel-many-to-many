@@ -29,7 +29,9 @@ class UpdateProjectRequest extends FormRequest
             'type_id' => ['nullable', Rule::exists('types', 'id')],
             'cover_image' => ['nullable', 'image'],
             'git_link' => ['nullable'],
-            'project_link' => ['nullable']
+            'project_link' => ['nullable'],
+            'technologies' => ['nullable', 'exists:technologies,id']
+
         ];
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTypeRequest;
 use App\Http\Requests\UpdateTypeRequest;
+use App\Models\Project;
 use App\Models\Type;
 use Illuminate\Http\Request;
 
@@ -49,8 +50,9 @@ class TypeController extends Controller
      */
     public function show(Type $type)
     {
+        $projects = Project::where('type_id', '=', $type->id)->get();
 
-        return view('admin.types.show', compact('type'));
+        return view('admin.types.show', compact('type', 'projects'));
     }
 
     /**
@@ -58,7 +60,9 @@ class TypeController extends Controller
      */
     public function edit(Type $type)
     {
-        //
+
+
+        return view('admin.types.edit', compact('type'));
     }
 
     /**
@@ -66,7 +70,13 @@ class TypeController extends Controller
      */
     public function update(UpdateTypeRequest $request, Type $type)
     {
-        //
+        if ($request->has('name')) {
+            $val_data['name'] = $request->name;
+        }
+
+        $type->update($val_data);
+
+        return to_route('admin.types.index')->with('message', 'update with success');
     }
 
     /**
@@ -74,6 +84,8 @@ class TypeController extends Controller
      */
     public function destroy(Type $type)
     {
-        //
+        $type->forceDelete();
+
+        return to_route('admin.types.index');
     }
 }
