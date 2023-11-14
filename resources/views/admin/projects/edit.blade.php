@@ -56,6 +56,29 @@
                     @enderror
                 </div>
 
+
+
+
+                <div class="mb-3">
+                    <label for="technologies" class="form-label">Technologies</label>
+                    <select multiple class="form-select" name="technologies[]" id="technologies">
+                        <option disabled>Select Technologies</option>
+                        @foreach ($technologies as $technology)
+                            <option value="{{ $technology->id }}"
+                                {{ in_array($technology->id, old('technologies', [])) ? 'selected' : '' }}>
+                                {{ $technology->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+
+
+
+
+
+
+
+
                 <div class="mb-3">
                     <label for="git_link" class="form-label">git link</label>
                     <input type="text" name="git_link" id="git_link" class="form-control"

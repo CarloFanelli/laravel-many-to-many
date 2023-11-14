@@ -58,13 +58,11 @@ class ProjectController extends Controller
             $val_data['cover_image'] = $path;
         }
 
-
-
         //dd($val_data);
         //dd(Project::create($val_data));
         $new_project = Project::create($val_data);
 
-        $new_project->technology()->attach($request->technologies);
+        $new_project->technologies()->attach($request->technologies);
 
         return to_route('admin.projects.index')->with('message', 'new project added');
     }
@@ -84,7 +82,9 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $types = Type::all();
-        return view('admin.projects.edit', compact('project', 'types'));
+        $technologies = Technology::all();
+
+        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -121,6 +121,10 @@ class ProjectController extends Controller
         }
 
         $project->update($val_data);
+
+        if ($request->has('technologies')) {
+            $project->technologies()->sync($request->technologies);
+        }
 
         return to_route('admin.projects.index',)->with('message', 'update with success');
     }
@@ -169,7 +173,7 @@ class ProjectController extends Controller
             Storage::delete('placeholders/' . $project->cover_image);
         }
 
-        $project->technology()->detach();
+        $project->technologies()->detach();
 
 
         $project->forceDelete();
