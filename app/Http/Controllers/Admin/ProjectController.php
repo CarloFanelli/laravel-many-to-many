@@ -175,7 +175,6 @@ class ProjectController extends Controller
 
         $project->technologies()->detach();
 
-
         $project->forceDelete();
 
         return to_route('admin.trash')->with('message', 'post deleted success!');
